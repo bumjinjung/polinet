@@ -1,0 +1,24 @@
+name: Deploy to Synology NAS
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+    
+    - name: Deploy via FTP
+      uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+      with:
+        server: bumjin.synology.me
+        username: bumjin
+        password: ${{ secrets.FTP_PASSWORD }}
+        port: 8822
+        local-dir: ./site/
+        server-dir: /volume1/web/polinet/
+        state-name: .ftp-deploy-sync-state.json
