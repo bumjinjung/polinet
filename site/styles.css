@@ -1002,6 +1002,7 @@ section {
 
     .hero-description {
         font-size: 1.1rem;
+        display: none;
     }
 
     .hero-stats {
