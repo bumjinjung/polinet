@@ -18,7 +18,7 @@ jobs:
         server: bumjin.synology.me
         username: bumjin
         password: ${{ secrets.FTP_PASSWORD }}
-        port: 8822
+        port: 10021
         local-dir: ./site/
         server-dir: /volume1/web/polinet/
         state-name: .ftp-deploy-sync-state.json
