@@ -464,6 +464,7 @@ section {
     background: var(--gray-100);
     color: var(--gray-700);
     font-weight: 600;
+    font-size: 0.95rem;
     cursor: pointer;
     transition: all 0.3s ease;
 }
@@ -1030,6 +1031,11 @@ section {
     /* 모바일에서 제품 그리드의 최소 폭으로 인한 가로 스크롤 방지 */
     .products-grid {
         grid-template-columns: 1fr;
+    }
+
+    /* 모바일에서 필터 버튼 글자 크기 증가 */
+    .filter-btn {
+        font-size: 1.00rem;
     }
 
     .about-values {
