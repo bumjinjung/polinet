@@ -23,9 +23,9 @@ jobs:
         server-dir: /web/polinet/
         state-name: .ftp-deploy-sync-state.json
         exclude: |
-          **/.git
-          **/.github
-          **/.gitignore
-          **/node_modules
-          **/.DS_Store
-          **/README.md
+          .git/**
+          .github/**
+          .gitignore
+          node_modules/**
+          .DS_Store
+          README.md
