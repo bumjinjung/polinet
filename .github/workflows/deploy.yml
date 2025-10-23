@@ -20,7 +20,7 @@ jobs:
         password: ${{ secrets.FTP_PASSWORD }}
         port: 10021
         local-dir: ./
-        server-dir: /volume1/web/polinet/
+        server-dir: /web/polinet/
         state-name: .ftp-deploy-sync-state.json
         exclude: |
           **/.git
