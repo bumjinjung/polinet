@@ -6,14 +6,13 @@
   --graphite-2: #2A3135;
   --slate: #5B6569;
   --line: #CDD2CF;
-  --red: #ED1C24;
+  --red: #EE0217;        /* Polyplastics red */
   --red-deep: #C8141B;
   --on-dark: #EEF1EF;
   --on-dark-2: #A9B3B0;
 
   --f-kr: "Gothic A1", system-ui, sans-serif;
   --f-x: "Archivo", "Gothic A1", system-ui, sans-serif;
-  --f-logo: "Rozha One", Georgia, serif;
 
   --header: 72px;
   --gutter: clamp(1rem, 4vw, 4rem);
@@ -53,9 +52,10 @@ a, button { touch-action: manipulation; }
 /* ---------- header ---------- */
 #header { position: fixed; inset: 0 0 auto; z-index: 20; padding-top: env(safe-area-inset-top); background: var(--resin); border-bottom: 1px solid var(--line); }
 .nav-wrapper { display: flex; align-items: center; justify-content: space-between; gap: 2rem; height: var(--header); }
-.logo { display: inline-flex; align-items: center; gap: 10px; text-decoration: none; color: var(--red); }
+.logo { display: inline-flex; align-items: center; min-height: 44px; text-decoration: none; }
 .logo svg { display: block; }
-.logo-word { font: 400 1.65rem/1 var(--f-logo); letter-spacing: 0.02em; transform: translateY(2px); }
+/* wordmark: the name from the emblem, in Polyplastics red */
+.logo-word { font: 800 1.75rem/1 var(--f-x); color: var(--red); }
 .nav-menu { display: flex; align-items: center; gap: 2rem; }
 .nav-link { font-weight: 500; text-decoration: none; }
 .nav-link:hover, .nav-link.active { text-decoration: underline; text-underline-offset: 6px; text-decoration-thickness: 2px; }
@@ -88,7 +88,8 @@ a, button { touch-action: manipulation; }
 .hero .wrap > div:first-child { position: relative; z-index: 1; }
 .pallet-photo { pointer-events: none; }
 .pallet-photo { justify-self: end; width: 132%; max-width: 980px; margin-left: -32%; }
-@media (max-width: 64rem) { .pallet-photo { justify-self: center; width: 100%; margin-left: 0; } }
+/* stacked layouts: the pallet itself sits in the middle (it fills 43.6%–97.8% of the photo, its shadow runs off to the left) */
+@media (max-width: 64rem) { .pallet-photo { justify-self: start; width: 100%; margin-left: -20.7%; } }
 .pallet-photo img { display: block; width: 100%; height: auto; }
 @media (prefers-reduced-motion: no-preference) {
   .pallet-photo img { animation: settle 700ms cubic-bezier(.3,.8,.3,1) both 120ms; }
@@ -195,7 +196,8 @@ a, button { touch-action: manipulation; }
 .map { overflow: hidden; min-height: 340px; border-radius: 20px; background: var(--graphite-2); }
 .map iframe { display: block; width: 100%; height: 100%; min-height: 340px; border: 0; filter: grayscale(0.85) contrast(1.05); }
 .footer { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1rem 2rem; margin-top: clamp(2.5rem, 6vh, 4rem); padding-top: 1.5rem; padding-bottom: env(safe-area-inset-bottom); border-top: 1px solid rgba(238,241,239,.14); font-size: 0.875rem; color: var(--on-dark-2); }
-.footer-brand { display: flex; align-items: center; gap: 0.75rem; color: var(--on-dark); }
+.footer-brand { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem 1.25rem; }
+.footer-emblem { display: block; flex: none; }
 .footer-links { display: flex; flex-wrap: wrap; gap: 0.5rem 1.5rem; }
 .footer-links a { text-decoration: none; }
 .footer-links a:hover { color: var(--on-dark); text-decoration: underline; }
@@ -238,13 +240,13 @@ a, button { touch-action: manipulation; }
   html:not(.js) .mobile-menu-btn { display: none; }
   html:not(.js) .nav-menu { gap: 1rem; }
 
-  /* hero: the pallet near full width, part of the long shadow runs off the left edge */
+  /* hero: the pallet near full width and centred on the screen, part of the long shadow runs off the left edge */
   .hero { min-height: 100svh; }
   .hero .wrap { gap: 1.5rem; }
   .hero h1 { font-size: 2.375rem; }
   .hero-lead { font-size: 1rem; }
   .hero .actions .btn { flex: 1 1 0; padding-inline: 1rem; }
-  .pallet-photo { justify-self: end; width: 155%; max-width: none; margin-left: -55%; }
+  .pallet-photo { justify-self: start; width: 155%; max-width: none; margin-left: -59.55%; }
 
   /* company: a plain list instead of grey boxes */
   .about-text { font-size: 1.125rem; }
