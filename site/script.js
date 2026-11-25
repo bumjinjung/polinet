@@ -55,18 +55,68 @@
         { duration: 300, easing: 'cubic-bezier(.3,.8,.3,1)' });
     }
   };
+  // phones: every sack in a row you can swipe; CSS shows it only on narrow screens
+  const stage = document.querySelector('.bag-stage');
+  const rail = document.createElement('div');
+  rail.className = 'bag-rail';
+  const railBags = tabs.map((t) => {
+    const fig = document.createElement('figure');
+    fig.className = 'rail-bag';
+    const im = new Image(547, 900);
+    im.src = t.dataset.img; im.alt = ''; im.decoding = 'async';
+    fig.append(im);
+    rail.append(fig);
+    return fig;
+  });
+  stage.append(rail);
+  stage.classList.add('has-rail');
+  const railOn = () => rail.offsetParent !== null;
+  const railTo = (i, smooth) => {
+    const b = railBags[i];
+    rail.scrollTo({ left: b.offsetLeft - (rail.clientWidth - b.offsetWidth) / 2, behavior: smooth && !reduce.matches ? 'smooth' : 'auto' });
+  };
+  const markRail = (i) => railBags.forEach((b, j) => b.classList.toggle('is-active', i === j));
+  let fromRail = false;
+  // phones: the chosen chip sits in the middle of the chip row, like its sack below
+  const tabList = tabs[0].parentElement;
+  const chipTo = (i, smooth) => {
+    const c = tabs[i];
+    tabList.scrollTo({ left: c.offsetLeft - (tabList.clientWidth - c.offsetWidth) / 2, behavior: smooth && !reduce.matches ? 'smooth' : 'auto' });
+  };
+
   const select = (i, save = true) => {
     current = i;
     tabs.forEach((t, j) => { const on = i === j; t.setAttribute('aria-selected', String(on)); t.tabIndex = on ? 0 : -1; });
     shown = -1;
     show(i);
-    if (save) {
-      remember('product', tabs[i].dataset.filter);
-      // on phones the chips scroll sideways: bring a half-hidden chip fully into view
-      tabs[i].scrollIntoView({ block: 'nearest', inline: 'nearest', behavior: reduce.matches ? 'auto' : 'smooth' });
+    markRail(i);
+    if (railOn()) {
+      if (!fromRail) railTo(i, save);
+      chipTo(i, save);
     }
+    if (save) remember('product', tabs[i].dataset.filter);
   };
-  const tabList = tabs[0].parentElement;
+
+  // swiping the sacks picks the one that settles in the middle
+  const centred = () => {
+    const mid = rail.scrollLeft + rail.clientWidth / 2;
+    let best = 0;
+    railBags.forEach((b, j) => {
+      if (Math.abs(b.offsetLeft + b.offsetWidth / 2 - mid) < Math.abs(railBags[best].offsetLeft + railBags[best].offsetWidth / 2 - mid)) best = j;
+    });
+    return best;
+  };
+  let settle;
+  rail.addEventListener('scroll', () => {
+    markRail(centred());
+    clearTimeout(settle);
+    settle = setTimeout(() => {
+      const i = centred();
+      if (i !== current) { fromRail = true; select(i); fromRail = false; }
+    }, 120);
+  }, { passive: true });
+  railBags.forEach((b, i) => b.addEventListener('click', () => select(i)));
+
   tabs.forEach((t, i) => {
     t.addEventListener('click', () => select(i));
     t.addEventListener('pointerenter', (e) => { if (e.pointerType === 'mouse') show(i); });
@@ -75,6 +125,10 @@
   keyNav(tabs, (i) => select(i));
   const startProduct = tabs.findIndex((t) => t.dataset.filter === params.get('product'));
   select(Math.max(0, startProduct), false);
+  // place the rail once layout is known, and again when the screen turns or resizes
+  const placeRows = () => { if (railOn()) { railTo(current, false); chipTo(current, false); } };
+  requestAnimationFrame(placeRows);
+  addEventListener('resize', placeRows);
 
   // ---------- applications ----------
   const aTabs = [...document.querySelectorAll('.seg-tab')];

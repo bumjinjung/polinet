@@ -155,6 +155,7 @@ a, button { touch-action: manipulation; }
 .stage-fig::after { content: ""; position: absolute; z-index: -1; left: 16%; right: 16%; bottom: 0.4%; height: 3.2%; border-radius: 50%; filter: blur(3px); background: radial-gradient(closest-side, rgba(28,33,36,.42), rgba(28,33,36,.16) 60%, transparent); }
 .stage-fig::before { content: ""; position: absolute; z-index: -1; left: 4%; right: 4%; bottom: -3%; height: 9%; border-radius: 50%; background: radial-gradient(closest-side, rgba(28,33,36,.10), transparent); }
 .stage-photo { position: relative; display: block; width: 100%; height: auto; }
+.bag-rail { display: none; }
 
 .panel[hidden] { display: none; }
 .panel + .panel { margin-top: 2rem; }
@@ -265,16 +266,24 @@ a, button { touch-action: manipulation; }
   /* products: brand chips in one row, the sack right under them, the rest after the details */
   .lineup { display: flex; flex-direction: column; align-items: stretch; gap: 1.25rem; }
   .tabs-col { display: contents; }
-  .tabs { order: 1; display: flex; gap: 0.5rem; margin-inline: calc(-1 * var(--gutter)); padding-inline: var(--gutter); overflow-x: auto; overscroll-behavior-x: contain; scroll-snap-type: x proximity; scroll-padding-inline: var(--gutter); scrollbar-width: none;
-    -webkit-mask-image: linear-gradient(to right, #000 calc(100% - 2.5rem), transparent); mask-image: linear-gradient(to right, #000 calc(100% - 2.5rem), transparent); }
-  .tabs::after { content: ""; flex: none; width: 1.5rem; }
-  .tab { scroll-snap-align: start; }
+  .tabs { position: relative; order: 1; display: flex; gap: 0.5rem; margin-inline: calc(-1 * var(--gutter)); padding-inline: 34vw; overflow-x: auto; overscroll-behavior-x: contain; scroll-snap-type: x proximity; scrollbar-width: none;
+    -webkit-mask-image: linear-gradient(to right, transparent, #000 2.5rem, #000 calc(100% - 2.5rem), transparent); mask-image: linear-gradient(to right, transparent, #000 2.5rem, #000 calc(100% - 2.5rem), transparent); }
+  .tab { scroll-snap-align: center; }
   .tabs::-webkit-scrollbar { display: none; }
   .tab { flex: none; flex-direction: row; align-items: baseline; gap: 0.4rem; min-height: 44px; padding: 0 1rem; border: 1px solid var(--line); border-radius: 999px; }
   .tab[aria-selected="true"] { border-color: var(--graphite); }
   .tab-brand, .tab-type { line-height: 44px; }
   .bag-stage { order: 2; min-height: 0; }
   .stage-fig { width: 132px; }
+  /* swipe between sacks: the chosen one in the middle, its neighbours dimmed at the sides */
+  .bag-stage.has-rail { display: block; justify-items: normal; }
+  .bag-stage.has-rail .stage-fig { display: none; }
+  .bag-rail { position: relative; display: grid; grid-auto-flow: column; grid-auto-columns: 42vw; justify-self: stretch; width: calc(100% + 2 * var(--gutter)); margin-inline: calc(-1 * var(--gutter)); padding: 0 29vw 1.25rem; overflow-x: auto; overscroll-behavior-x: contain; scroll-snap-type: x mandatory; scrollbar-width: none; touch-action: pan-x pan-y; }
+  .bag-rail::-webkit-scrollbar { display: none; }
+  .rail-bag { position: relative; isolation: isolate; margin: 0; padding: 0 9%; scroll-snap-align: center; opacity: 0.35; transform: scale(0.8); transition: opacity 220ms ease-out, transform 220ms ease-out; cursor: pointer; }
+  .rail-bag.is-active { opacity: 1; transform: none; }
+  .rail-bag img { position: relative; display: block; width: 100%; height: auto; }
+  .rail-bag::after { content: ""; position: absolute; z-index: -1; left: 22%; right: 22%; bottom: 0.4%; height: 3.2%; border-radius: 50%; filter: blur(3px); background: radial-gradient(closest-side, rgba(28,33,36,.42), rgba(28,33,36,.16) 60%, transparent); }
   #productsGrid { order: 3; }
   .others { order: 4; }
   .panel h3 { font-size: 1.75rem; }
