@@ -63,7 +63,8 @@
     const fig = document.createElement('figure');
     fig.className = 'rail-bag';
     const im = new Image(547, 900);
-    im.src = t.dataset.img; im.alt = ''; im.decoding = 'async';
+    // lazy: the row is hidden on wider screens, so these never download there
+    im.loading = 'lazy'; im.decoding = 'async'; im.alt = ''; im.src = t.dataset.img;
     fig.append(im);
     rail.append(fig);
     return fig;
@@ -111,13 +112,17 @@
     if (save) remember('product', tabs[i].dataset.filter);
   };
 
-  rail.addEventListener('scroll', () => {
+  // at most once per frame: read where the row is, then move the chips to match
+  let railFrame = 0;
+  const onRail = () => {
+    railFrame = 0;
     syncChips();
     const i = centred();
     markRail(i);
     if (railGoal !== -1) { if (i === railGoal) railGoal = -1; return; }
     if (i !== current) { fromRail = true; select(i); fromRail = false; }
-  }, { passive: true });
+  };
+  rail.addEventListener('scroll', () => { if (!railFrame) railFrame = requestAnimationFrame(onRail); }, { passive: true });
   rail.addEventListener('pointerdown', () => { railGoal = -1; });
   railBags.forEach((b, i) => b.addEventListener('click', () => select(i)));
 
@@ -130,6 +135,11 @@
   const startProduct = tabs.findIndex((t) => t.dataset.filter === params.get('product'));
   select(Math.max(0, startProduct), false);
   // place the rail once layout is known, and again when the screen turns or resizes
+  // the product tabs stand in a column only on wide screens; elsewhere they run in a row (the default)
+  const tallTabs = matchMedia('not all and (max-width: 64rem)');
+  const orient = () => { if (tallTabs.matches) tabList.setAttribute('aria-orientation', 'vertical'); else tabList.removeAttribute('aria-orientation'); };
+  orient();
+  tallTabs.addEventListener('change', orient);
   const placeRows = () => { if (railOn()) { railTo(current, false); syncChips(); } };
   requestAnimationFrame(placeRows);
   addEventListener('resize', placeRows);
@@ -137,8 +147,37 @@
   // ---------- applications ----------
   const aTabs = [...document.querySelectorAll('.seg-tab')];
   const aPanels = aTabs.map((t) => document.getElementById(t.getAttribute('aria-controls')));
+  // phones: the cases sit in a sideways row; previous / next step through it and the counter says where you are
+  const caseCount = document.querySelector('.case-count');
+  let aCurrent = 0;
+  const caseStart = (panel, fig) => fig.offsetLeft - parseFloat(getComputedStyle(panel).scrollPaddingInlineStart || 0);
+  const caseAt = (panel) => {
+    const figs = [...panel.children];
+    if (panel.scrollLeft >= panel.scrollWidth - panel.clientWidth - 2) return figs.length - 1;
+    let best = 0;
+    figs.forEach((f, j) => { if (Math.abs(caseStart(panel, f) - panel.scrollLeft) < Math.abs(caseStart(panel, figs[best]) - panel.scrollLeft)) best = j; });
+    return best;
+  };
+  const countCases = () => {
+    const panel = aPanels[aCurrent];
+    const text = `${caseAt(panel) + 1} / ${panel.children.length}`;
+    if (caseCount.textContent !== text) caseCount.textContent = text;
+  };
+  document.querySelectorAll('.case-step').forEach((b) => b.addEventListener('click', () => {
+    const panel = aPanels[aCurrent];
+    const n = panel.children.length;
+    const next = (caseAt(panel) + Number(b.dataset.step) + n) % n; // past either end it wraps round
+    panel.scrollTo({ left: caseStart(panel, panel.children[next]), behavior: reduce.matches ? 'auto' : 'smooth' });
+  }));
+  aPanels.forEach((p) => {
+    let frame = 0;
+    p.addEventListener('scroll', () => { if (!frame) frame = requestAnimationFrame(() => { frame = 0; countCases(); }); }, { passive: true });
+  });
+
   const aSelect = (i, save = true) => {
+    aCurrent = i;
     aTabs.forEach((t, j) => { const on = i === j; t.setAttribute('aria-selected', String(on)); t.tabIndex = on ? 0 : -1; aPanels[j].hidden = !on; });
+    countCases();
     if (save) remember('use', aTabs[i].id.replace('at-', ''));
   };
   aTabs.forEach((t, i) => t.addEventListener('click', () => aSelect(i)));
@@ -161,6 +200,16 @@
     goTo(target, true);
     setMenu(false);
   }));
+
+  // ---------- snap whole screens only when every screen fits the window ----------
+  const wide = matchMedia('(min-width: 64rem) and (min-height: 700px)');
+  const screens = [...document.querySelectorAll('.screen')];
+  const fitSnap = () => document.documentElement.classList.toggle('snap',
+    wide.matches && screens.every((s) => s.offsetHeight <= innerHeight + 1));
+  const fitWatch = new ResizeObserver(fitSnap);
+  screens.forEach((s) => fitWatch.observe(s));
+  addEventListener('resize', fitSnap);
+  fitSnap();
 
   // ---------- mark the screen in view in the nav ----------
   const links = [...document.querySelectorAll('.nav-link')];
