@@ -60,7 +60,11 @@
     tabs.forEach((t, j) => { const on = i === j; t.setAttribute('aria-selected', String(on)); t.tabIndex = on ? 0 : -1; });
     shown = -1;
     show(i);
-    if (save) remember('product', tabs[i].dataset.filter);
+    if (save) {
+      remember('product', tabs[i].dataset.filter);
+      // on phones the chips scroll sideways: bring a half-hidden chip fully into view
+      tabs[i].scrollIntoView({ block: 'nearest', inline: 'nearest', behavior: reduce.matches ? 'auto' : 'smooth' });
+    }
   };
   const tabList = tabs[0].parentElement;
   tabs.forEach((t, i) => {
