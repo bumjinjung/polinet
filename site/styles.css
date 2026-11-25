@@ -73,7 +73,6 @@ a, button { touch-action: manipulation; }
 .screen > .wrap { padding-block: clamp(2.5rem, 5vh, 4rem); }
 .screen-head { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: clamp(1.5rem, 4vw, 4rem); align-items: end; margin-bottom: clamp(2rem, 5vh, 3.5rem); }
 .screen-head h2 { font: 800 clamp(2rem, 3.4vw, 3rem)/1.2 var(--f-kr); letter-spacing: -0.03em; }
-.screen-head p { max-width: 34em; font-size: 1.125rem; color: var(--slate); }
 
 /* ---------- buttons ---------- */
 .btn { display: inline-flex; align-items: center; justify-content: center; min-height: 52px; padding: 0 1.5rem; border: 1.5px solid var(--graphite); border-radius: var(--r-control); background: transparent; color: var(--graphite); font: 700 1rem/1 var(--f-kr); text-decoration: none; white-space: nowrap; cursor: pointer; transition: background-color 160ms ease-out, color 160ms ease-out, border-color 160ms ease-out; }
@@ -188,7 +187,6 @@ a, button { touch-action: manipulation; }
 /* ---------- contact ---------- */
 .contact { background: var(--graphite); color: var(--on-dark); }
 .contact :focus-visible { outline-color: var(--on-dark); }
-.contact .screen-head p { color: var(--on-dark-2); }
 .contact-grid { display: grid; grid-template-columns: minmax(0, 6fr) minmax(0, 6fr); gap: clamp(2rem, 4vw, 4rem); align-items: stretch; }
 .mail-big { display: inline-block; max-width: 100%; overflow-wrap: anywhere; font: 800 clamp(1.75rem, 3.4vw, 3rem)/1.1 var(--f-x); font-stretch: 108%; letter-spacing: -0.01em; text-decoration: none; }
 .mail-big:hover { text-decoration: underline; text-decoration-thickness: 3px; text-underline-offset: 8px; }
@@ -264,7 +262,6 @@ a, button { touch-action: manipulation; }
   .screen > .wrap { padding-block: 3rem; }
   .screen-head { margin-bottom: 1.75rem; }
   .screen-head h2, .about-grid h2 { font-size: 1.875rem; }
-  .screen-head p { font-size: 1rem; }
 
   /* menu: a sheet under the header, rows big enough to tap, the page dimmed behind */
   .logo { padding-block: 5px; }
