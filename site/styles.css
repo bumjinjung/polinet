@@ -121,8 +121,12 @@ a, button { touch-action: manipulation; }
 .area h3 { font: 800 clamp(1.6rem, 2.6vw, 2.4rem)/1.25 var(--f-kr); letter-spacing: -0.03em; }
 .area p { margin-top: 1.1rem; font-size: 1.125rem; color: var(--slate); max-width: 22em; }
 .area .tags { display: grid; gap: 0.6rem; margin-top: 2rem; padding-top: 1.25rem; border-top: 1px solid var(--line); font-size: 1.125rem; font-weight: 700; color: var(--graphite); }
-.photo-strip { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1rem; margin-top: clamp(2rem, 5vh, 3rem); }
-.photo-strip img { display: block; width: 100%; height: auto; aspect-ratio: 16 / 10; object-fit: cover; border-radius: 14px; background: var(--mist); }
+/* the work in order, from development to supply: one picture for each step */
+.flow { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1rem; padding: 0; list-style: none; margin-top: clamp(2rem, 5vh, 3rem); counter-reset: step; }
+.flow li { display: grid; align-content: start; gap: 0.6rem; counter-increment: step; }
+.flow img { display: block; width: 100%; height: auto; aspect-ratio: 16 / 10; object-fit: cover; border-radius: 14px; background: var(--graphite); }
+.flow strong { display: flex; align-items: baseline; gap: 0.55rem; font: 800 1.0625rem/1.3 var(--f-kr); letter-spacing: -0.01em; }
+.flow strong::before { content: counter(step); font: 700 0.875rem/1 var(--f-x); font-stretch: 112%; color: var(--slate); font-variant-numeric: tabular-nums; }
 
 /* ---------- applications ---------- */
 .apps { background: var(--panel); }
@@ -217,8 +221,10 @@ a, button { touch-action: manipulation; }
   .area h3 { font-size: clamp(1.4rem, 2.2vw, 2rem); }
   .area p { margin-top: 0.6rem; font-size: 1rem; }
   .area .tags { gap: 0.35rem; margin-top: 1rem; padding-top: 0.9rem; font-size: 1rem; }
-  .photo-strip { margin-top: 1.25rem; }
-  .photo-strip img { aspect-ratio: 16 / 8; }
+  .flow { margin-top: 1.25rem; gap: 0.75rem; }
+  .flow li { gap: 0.4rem; }
+  .flow img { aspect-ratio: 16 / 9; }
+  .flow strong { font-size: 1rem; }
   .seg { margin-bottom: 1rem; }
   .case img { aspect-ratio: 16 / 10; }
   .case figcaption { margin-top: 0.5rem; }
@@ -232,8 +238,8 @@ a, button { touch-action: manipulation; }
   .footer-emblem { width: 66px; height: 58px; }
 }
 @media (min-width: 64rem) and (max-height: 680px) {
-  /* very short windows: the repeat of the application photos goes, the headline comes down a size */
-  .photo-strip { display: none; }
+  /* very short windows: the process photos go flatter, the headline comes down a size */
+  .flow img { aspect-ratio: 5 / 2; }
   .hero h1 { font-size: clamp(2.25rem, 3.8vw, 3.25rem); }
   .case img { aspect-ratio: 16 / 9; }
   .case figcaption > span { min-height: 0; }
@@ -250,7 +256,7 @@ a, button { touch-action: manipulation; }
   .tabs-col { grid-column: 1 / -1; }
   .tabs { grid-template-columns: repeat(auto-fill, minmax(10rem, 1fr)); }
   .case-panel { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .photo-strip { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .flow { grid-template-columns: repeat(2, minmax(0, 1fr)); row-gap: 1.25rem; }
 }
 /* ---------- phones ---------- */
 @media (max-width: 48rem) {
@@ -294,14 +300,16 @@ a, button { touch-action: manipulation; }
   .support ul { grid-template-columns: minmax(0, 1fr); gap: 0; border-top: 1px solid var(--line); }
   .support li { padding: 0.9rem 0; background: none; border-radius: 0; border-bottom: 1px solid var(--line); }
 
-  /* business: tags as one wrapping row, no repeat of the application photos */
+  /* business: tags as one wrapping row, the process photos two by two */
   .areas { grid-template-columns: minmax(0, 1fr); gap: 2.25rem; }
   .area { padding-top: 1.25rem; }
   .area h3 { font-size: 1.5rem; }
   .area p { margin-top: 0.6rem; font-size: 1rem; }
   .area .tags { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1rem; padding-top: 0; border-top: 0; font-size: 0.9375rem; font-weight: 600; }
   .area .tags li { padding: 0.35rem 0.8rem; border: 1px solid var(--line); border-radius: 999px; background: var(--resin); }
-  .photo-strip { display: none; }
+  .flow { gap: 1rem 0.75rem; margin-top: 2.25rem; }
+  .flow img { border-radius: 10px; }
+  .flow strong { font-size: 0.9375rem; }
 
   /* applications: one row of resin tabs, cases swipe sideways with the next one peeking */
   .seg { display: flex; width: 100%; }
