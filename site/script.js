@@ -202,7 +202,7 @@
   }));
 
   // ---------- snap whole screens only when every screen fits the window ----------
-  const wide = matchMedia('(min-width: 64rem) and (min-height: 700px)');
+  const wide = matchMedia('(min-width: 64rem)');
   const screens = [...document.querySelectorAll('.screen')];
   const fitSnap = () => document.documentElement.classList.toggle('snap',
     wide.matches && screens.every((s) => s.offsetHeight <= innerHeight + 1));

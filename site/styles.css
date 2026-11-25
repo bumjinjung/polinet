@@ -28,9 +28,13 @@
 /* ---------- base ---------- */
 *, *::before, *::after { box-sizing: border-box; }
 html, body { overflow-x: clip; }
-html { scroll-padding-top: var(--header); -webkit-tap-highlight-color: transparent; }
-/* script adds .snap only while every screen fits the window, so tall screens are never skipped */
-@media (min-width: 64rem) and (min-height: 700px) {
+html { -webkit-tap-highlight-color: transparent; }
+/* each screen already keeps the header's height clear at its top, so the page stops with a screen's top at the window's top;
+   only phones, where screens drop that space, need the page itself to stop short of the header (see the phone block) */
+/* wide screens stop on each screen. Script adds .snap while every screen fits the window; if one is taller,
+   the page only settles on a screen when it comes to rest near one, so nothing in a tall screen is skipped */
+@media (min-width: 64rem) {
+  html { scroll-snap-type: y proximity; }
   html.snap { scroll-snap-type: y mandatory; }
 }
 body { margin: 0; background: var(--resin); color: var(--graphite); font: 400 1rem/1.7 var(--f-kr); word-break: keep-all; -webkit-font-smoothing: antialiased; }
@@ -202,6 +206,41 @@ a, button { touch-action: manipulation; }
 .footer-links a { text-decoration: none; }
 .footer-links a:hover { color: var(--on-dark); text-decoration: underline; }
 
+/* ---------- short desktop windows: tighter spacing, so each screen still fits the window and the page stops on it ---------- */
+@media (min-width: 64rem) and (max-height: 820px) {
+  .screen > .wrap { padding-block: 1.25rem; }
+  .screen-head { margin-bottom: 1.25rem; }
+  .screen-head h2, .about-grid h2 { font-size: clamp(1.75rem, 3vw, 2.5rem); }
+  .facts { margin-top: 1.5rem; padding-top: 1rem; }
+  .support { margin-top: 1.5rem; }
+  .area { padding-top: 1.25rem; }
+  .area h3 { font-size: clamp(1.4rem, 2.2vw, 2rem); }
+  .area p { margin-top: 0.6rem; font-size: 1rem; }
+  .area .tags { gap: 0.35rem; margin-top: 1rem; padding-top: 0.9rem; font-size: 1rem; }
+  .photo-strip { margin-top: 1.25rem; }
+  .photo-strip img { aspect-ratio: 16 / 8; }
+  .seg { margin-bottom: 1rem; }
+  .case img { aspect-ratio: 16 / 10; }
+  .case figcaption { margin-top: 0.5rem; }
+  .stage-fig { width: min(100%, 300px, 36vh); }
+  .panel-desc { margin-top: 0.75rem; }
+  .panel-specs { margin-top: 1rem; }
+  .products .actions { margin-top: 1.25rem; }
+  .contact-list { gap: 1.25rem; margin-top: 1.5rem; }
+  .map, .map iframe { min-height: 220px; }
+  .footer { margin-top: 1.25rem; padding-top: 1rem; }
+  .footer-emblem { width: 66px; height: 58px; }
+}
+@media (min-width: 64rem) and (max-height: 680px) {
+  /* very short windows: the repeat of the application photos goes, the headline comes down a size */
+  .photo-strip { display: none; }
+  .hero h1 { font-size: clamp(2.25rem, 3.8vw, 3.25rem); }
+  .case img { aspect-ratio: 16 / 9; }
+  .case figcaption > span { min-height: 0; }
+  .stage-fig { width: min(100%, 300px, 32vh); }
+  .map, .map iframe { min-height: 180px; }
+}
+
 /* ---------- smaller screens ---------- */
 @media (max-width: 64rem) {
   .screen { min-height: auto; }
@@ -215,6 +254,7 @@ a, button { touch-action: manipulation; }
 }
 /* ---------- phones ---------- */
 @media (max-width: 48rem) {
+  html { scroll-padding-top: var(--header); }
   /* sections: the fixed header only needs room above the first screen */
   .screen { padding-top: 0; grid-template-columns: minmax(0, 1fr); }
   .lineup > * { min-width: 0; }
