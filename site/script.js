@@ -77,11 +77,24 @@
   };
   const markRail = (i) => railBags.forEach((b, j) => b.classList.toggle('is-active', i === j));
   let fromRail = false;
-  // phones: the chosen chip sits in the middle of the chip row, like its sack below
+  let railGoal = -1; // the sack the rail is gliding to after a tap; no picking on the way
   const tabList = tabs[0].parentElement;
-  const chipTo = (i, smooth) => {
-    const c = tabs[i];
-    tabList.scrollTo({ left: c.offsetLeft - (tabList.clientWidth - c.offsetWidth) / 2, behavior: smooth && !reduce.matches ? 'smooth' : 'auto' });
+  const bagMid = (i) => railBags[i].offsetLeft + railBags[i].offsetWidth / 2;
+  const chipLeft = (i) => tabs[i].offsetLeft - (tabList.clientWidth - tabs[i].offsetWidth) / 2;
+  // swiping the sacks: the sack nearest the middle
+  const centred = () => {
+    const mid = rail.scrollLeft + rail.clientWidth / 2;
+    let best = 0;
+    railBags.forEach((b, j) => { if (Math.abs(bagMid(j) - mid) < Math.abs(bagMid(best) - mid)) best = j; });
+    return best;
+  };
+  // phones: the chip row moves with the sack row, so the chip in the middle always matches the sack in the middle
+  const syncChips = () => {
+    const mid = rail.scrollLeft + rail.clientWidth / 2;
+    let k = 0;
+    while (k < railBags.length - 2 && mid > bagMid(k + 1)) k++;
+    const t = Math.min(1, Math.max(0, (mid - bagMid(k)) / (bagMid(k + 1) - bagMid(k))));
+    tabList.scrollLeft = chipLeft(k) + t * (chipLeft(k + 1) - chipLeft(k));
   };
 
   const select = (i, save = true) => {
@@ -90,31 +103,22 @@
     shown = -1;
     show(i);
     markRail(i);
-    if (railOn()) {
-      if (!fromRail) railTo(i, save);
-      chipTo(i, save);
+    if (railOn() && !fromRail) {
+      if (centred() !== i) railGoal = i;
+      railTo(i, save);
+      syncChips();
     }
     if (save) remember('product', tabs[i].dataset.filter);
   };
 
-  // swiping the sacks picks the one that settles in the middle
-  const centred = () => {
-    const mid = rail.scrollLeft + rail.clientWidth / 2;
-    let best = 0;
-    railBags.forEach((b, j) => {
-      if (Math.abs(b.offsetLeft + b.offsetWidth / 2 - mid) < Math.abs(railBags[best].offsetLeft + railBags[best].offsetWidth / 2 - mid)) best = j;
-    });
-    return best;
-  };
-  let settle;
   rail.addEventListener('scroll', () => {
-    markRail(centred());
-    clearTimeout(settle);
-    settle = setTimeout(() => {
-      const i = centred();
-      if (i !== current) { fromRail = true; select(i); fromRail = false; }
-    }, 120);
+    syncChips();
+    const i = centred();
+    markRail(i);
+    if (railGoal !== -1) { if (i === railGoal) railGoal = -1; return; }
+    if (i !== current) { fromRail = true; select(i); fromRail = false; }
   }, { passive: true });
+  rail.addEventListener('pointerdown', () => { railGoal = -1; });
   railBags.forEach((b, i) => b.addEventListener('click', () => select(i)));
 
   tabs.forEach((t, i) => {
@@ -126,7 +130,7 @@
   const startProduct = tabs.findIndex((t) => t.dataset.filter === params.get('product'));
   select(Math.max(0, startProduct), false);
   // place the rail once layout is known, and again when the screen turns or resizes
-  const placeRows = () => { if (railOn()) { railTo(current, false); chipTo(current, false); } };
+  const placeRows = () => { if (railOn()) { railTo(current, false); syncChips(); } };
   requestAnimationFrame(placeRows);
   addEventListener('resize', placeRows);
 
