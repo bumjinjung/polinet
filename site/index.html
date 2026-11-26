@@ -64,6 +64,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,500..800&family=Gothic+A1:wght@400;500;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css?v=20261126a">
+    <link rel="stylesheet" href="molding-lab/story-embed.css?v=1">
 </head>
 <body>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
@@ -160,6 +161,79 @@
         <li><img src="images/step-3.webp" width="800" height="600" alt="사출기 옆 작업대에서 시사출한 기어를 캘리퍼로 재는 모습" loading="lazy"><strong>시사출 및 불량 분석</strong></li>
         <li><img src="images/step-4.webp" width="800" height="600" alt="사출기가 줄지어 선 공장에서 기어가 컨베이어로 상자에 담기고 출하 박스가 쌓인 모습" loading="lazy"><strong>양산</strong></li>
       </ol>
+    </div>
+  </section>
+
+  <!-- scroll story: one bag of pellets → busbar → EV. Pinned while it plays, then hands over to the applications screen. -->
+  <section id="story" class="pstory" aria-label="펠릿이 사출 성형을 거쳐 버스바가 되고 전기차에 실리는 과정">
+    <div class="stage">
+      <canvas id="cv" aria-hidden="true"></canvas>
+      <div class="scrim" aria-hidden="true"></div>
+
+      <div class="caps">
+        <div class="cap cap--hero" data-from="-1" data-to="0.044">
+          <p class="eyebrow" translate="no">DURAFIDE® PPS</p>
+          <h2>원료 한 포대가<br>전기차에 실리기까지</h2>
+          <p class="lead">스크롤을 내리면 포대가 열리고, 펠릿이 사출기를 지나 버스바가 되어 EV 배터리에 들어갑니다.</p>
+        </div>
+        <div class="cap" data-from="0.063" data-to="0.178">
+          <p class="eyebrow"><b>01</b> 개봉</p>
+          <h3>25kg 포대를 뜯습니다</h3>
+          <p class="lead">안에는 지름 3mm 남짓한 PPS 펠릿이 들어 있습니다.</p>
+        </div>
+        <div class="cap" data-from="0.207" data-to="0.348">
+          <p class="eyebrow"><b>02</b> 투입</p>
+          <h3>펠릿이 호퍼로 쏟아집니다</h3>
+          <p class="lead">호퍼에 쌓인 펠릿은 자중으로 실린더 안 스크류까지 내려갑니다.</p>
+        </div>
+        <div class="cap" data-from="0.37" data-to="0.485">
+          <p class="eyebrow"><b>03</b> 가소화</p>
+          <h3>스크류가 돌며 녹입니다</h3>
+          <p class="lead">히터의 열과 스크류의 전단열로 펠릿이 균일한 용융 수지가 됩니다.</p>
+        </div>
+        <div class="cap" data-from="0.50" data-to="0.588">
+          <p class="eyebrow"><b>04</b> 인서트 사출</p>
+          <h3>구리 바를 감싸며<br>굳힙니다</h3>
+          <p class="lead">금형에 미리 넣어 둔 구리 바 둘레로 수지를 밀어 넣고, 그대로 식힙니다.</p>
+        </div>
+        <div class="cap" data-from="0.60" data-to="0.666">
+          <p class="eyebrow"><b>05</b> 취출</p>
+          <h3>금형이 열리고<br>부품이 떨어집니다</h3>
+        </div>
+        <div class="cap" data-from="0.70" data-to="0.775">
+          <p class="eyebrow" translate="no">DURAFIDE® PPS</p>
+          <h3>구리를 품은<br>EV 버스바</h3>
+          <p class="lead">구리 바를 PPS 수지로 감싸 절연한 인서트 성형품입니다.</p>
+        </div>
+        <div class="cap" data-from="0.80" data-to="0.905">
+          <p class="eyebrow"><b>06</b> 탑재</p>
+          <h3>버스바가 배터리 팩에<br>들어갑니다</h3>
+          <p class="lead">모듈과 모듈 사이에서 고전압 전류가 지나는 길이 됩니다.</p>
+        </div>
+        <div class="cap cap--end" data-from="0.972" data-to="2">
+          <p class="eyebrow" translate="no">DURAFIDE® PPS</p>
+          <h3>원료 한 포대에서<br>달리는 전기차까지.</h3>
+          <p class="lead">버스바는 한 가지 예입니다. 같은 소재들이 쓰이는 다른 부품을 이어서 보세요.</p>
+          <div class="s-actions">
+            <a class="s-btn s-btn--solid" href="#applications">적용 사례 보기</a>
+            <button class="s-btn" id="replay" type="button">처음부터 다시</button>
+          </div>
+        </div>
+      </div>
+
+      <ol class="rail" aria-hidden="true">
+        <li data-at="0.052"><span>개봉</span></li>
+        <li data-at="0.20"><span>투입</span></li>
+        <li data-at="0.37"><span>가소화</span></li>
+        <li data-at="0.50"><span>사출</span></li>
+        <li data-at="0.60"><span>취출</span></li>
+        <li data-at="0.775"><span>탑재</span></li>
+      </ol>
+      <div class="s-tools">
+        <button class="play" id="play" type="button" aria-pressed="false"><span class="play-ic" aria-hidden="true"></span><span class="play-tx">자동 재생</span></button>
+        <a class="s-skip" href="#applications">건너뛰기</a>
+      </div>
+      <div class="loading" id="loading">불러오는 중…</div>
     </div>
   </section>
 
@@ -294,5 +368,6 @@
 </main>
 
 <script src="script.js?v=20261126a"></script>
+<script src="molding-lab/molding.js?v=5" defer></script>
 </body>
 </html>

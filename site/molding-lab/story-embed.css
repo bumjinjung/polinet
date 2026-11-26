@@ -1,0 +1,64 @@
+/* The scroll story as a section of the main page. Everything is scoped to .pstory so it cannot touch the page around it.
+   The standalone test page (molding-lab/index.html) uses molding.css instead. */
+.pstory {
+  --s-ink: #14181A;
+  --s-on: #EEF1EF;
+  --s-on-2: #A9B3B0;
+  --s-line: rgba(238, 241, 239, 0.16);
+  --s-top: calc(var(--header) + env(safe-area-inset-top, 0px));   /* the fixed header's height */
+  position: relative; height: 1350vh; height: 1350svh; padding-top: var(--s-top);
+  background: var(--s-ink); color: var(--s-on); scroll-snap-align: start;
+}
+/* a wide page snaps screen by screen; while the story is in view it must scroll freely */
+@media (min-width: 64rem) { html.in-story, html.snap.in-story { scroll-snap-type: y proximity; } }
+
+.pstory ol { margin: 0; padding: 0; list-style: none; }
+.pstory :focus-visible { outline-color: var(--s-on); }
+.pstory .stage { position: sticky; top: var(--s-top); height: calc(100vh - var(--s-top)); height: calc(100svh - var(--s-top)); overflow: hidden; }
+.pstory #cv { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.pstory .scrim { position: absolute; inset: 0; pointer-events: none; background: linear-gradient(90deg, rgba(20, 24, 26, 0.9) 0%, rgba(20, 24, 26, 0.74) 24%, rgba(20, 24, 26, 0.3) 40%, rgba(20, 24, 26, 0) 54%); }
+
+/* captions */
+.pstory .caps { position: absolute; inset: 0; pointer-events: none; }
+.pstory .cap { position: absolute; left: max(var(--gutter), env(safe-area-inset-left)); top: 50%; width: min(34rem, 40vw); opacity: 0; visibility: hidden; transform: translateY(calc(-50% + var(--dy, 0px))); will-change: opacity, transform; }
+.pstory .cap.on { visibility: visible; }
+.pstory .eyebrow { font: 700 0.8125rem/1 var(--f-x); letter-spacing: 0.14em; color: var(--s-on-2); margin-bottom: 1.1rem; display: flex; align-items: center; gap: 0.7rem; }
+.pstory .eyebrow b { font-weight: 800; color: var(--red); font-size: 0.9375rem; letter-spacing: 0.04em; }
+.pstory .cap :is(h2, h3) { font: 800 clamp(2rem, 3.6vw, 3.5rem)/1.16 var(--f-kr); letter-spacing: -0.02em; color: var(--s-on); text-wrap: balance; }
+.pstory .cap--hero h2 { font-size: clamp(2.25rem, 4.3vw, 4.25rem); }
+.pstory .lead { margin-top: 1.2rem; color: var(--s-on-2); font-size: clamp(0.9375rem, 1.1vw, 1.0625rem); line-height: 1.7; max-width: 26rem; }
+.pstory .s-actions { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 2rem; pointer-events: auto; }
+.pstory .s-btn { display: inline-flex; align-items: center; justify-content: center; min-height: 48px; padding: 0 1.4rem; border: 1px solid rgba(238, 241, 239, 0.4); border-radius: var(--r-control); background: transparent; color: var(--s-on); font: 700 0.9375rem/1 var(--f-kr); text-decoration: none; white-space: nowrap; cursor: pointer; transition: background-color 160ms ease-out, border-color 160ms ease-out; }
+.pstory .s-btn:hover { background: rgba(238, 241, 239, 0.1); }
+.pstory .s-btn:active { transform: translateY(1px); }
+.pstory .s-btn--solid { background: var(--red); border-color: var(--red); color: #fff; }
+.pstory .s-btn--solid:hover { background: var(--red-deep); border-color: var(--red-deep); }
+
+/* step rail */
+.pstory .rail { position: absolute; left: max(var(--gutter), env(safe-area-inset-left)); right: max(var(--gutter), env(safe-area-inset-right)); bottom: calc(1.75rem + env(safe-area-inset-bottom)); display: grid; grid-template-columns: repeat(6, 1fr); gap: 6px; pointer-events: none; }
+.pstory .rail li { position: relative; padding-top: 0.7rem; font: 500 0.75rem/1 var(--f-kr); color: rgba(169, 179, 176, 0.55); transition: color 0.3s; }
+.pstory .rail li::before, .pstory .rail li::after { content: ""; position: absolute; inset: 0 0 auto; height: 2px; border-radius: 2px; background: var(--s-line); }
+.pstory .rail li::after { background: var(--s-on); transform-origin: left; transform: scaleX(var(--f, 0)); }
+.pstory .rail li.on { color: var(--s-on); }
+
+/* play / skip */
+.pstory .s-tools { position: absolute; top: 1rem; right: max(var(--gutter), env(safe-area-inset-right)); display: flex; align-items: center; gap: 0.5rem; }
+.pstory .play, .pstory .s-skip { display: inline-flex; align-items: center; gap: 0.55rem; min-height: 44px; padding: 0 1rem; border: 1px solid var(--s-line); border-radius: 99px; background: rgba(20, 24, 26, 0.6); color: var(--s-on); font: 500 0.875rem/1 var(--f-kr); text-decoration: none; cursor: pointer; backdrop-filter: blur(8px); transition: background-color 0.2s, border-color 0.2s; }
+.pstory .play:hover, .pstory .s-skip:hover { background: rgba(238, 241, 239, 0.1); border-color: rgba(238, 241, 239, 0.4); }
+.pstory .play-ic { width: 0; height: 0; border-left: 9px solid currentColor; border-block: 6px solid transparent; }
+.pstory .play[aria-pressed="true"] .play-ic { width: 9px; height: 12px; border: 0; border-inline: 3px solid currentColor; }
+
+.pstory .loading { position: absolute; inset: 0; display: grid; place-items: center; background: var(--s-ink); color: var(--s-on-2); font-size: 0.875rem; transition: opacity 0.5s; }
+.pstory .loading.done { opacity: 0; pointer-events: none; }
+
+/* narrow / portrait: captions sit at the bottom, the subject stays centred */
+@media (max-width: 52rem), (orientation: portrait) {
+  .pstory .scrim { background: linear-gradient(0deg, rgba(20, 24, 26, 0.94) 0%, rgba(20, 24, 26, 0.7) 26%, rgba(20, 24, 26, 0) 50%); }
+  .pstory .cap { top: auto; bottom: calc(5.5rem + env(safe-area-inset-bottom)); width: auto; right: max(var(--gutter), env(safe-area-inset-right)); transform: translateY(var(--dy, 0px)); }
+  .pstory .cap :is(h2, h3), .pstory .cap--hero h2 { font-size: clamp(1.75rem, 7.4vw, 2.5rem); }
+  .pstory .lead { margin-top: 0.7rem; }
+  .pstory .eyebrow { margin-bottom: 0.7rem; }
+  .pstory .s-actions { margin-top: 1.2rem; }
+  .pstory .rail li span { display: none; }
+  .pstory .rail { bottom: calc(1.25rem + env(safe-area-inset-bottom)); }
+}
