@@ -125,7 +125,7 @@ a, button { touch-action: manipulation; }
 .flow strong::before { content: counter(step); font: 700 0.875rem/1 var(--f-x); font-stretch: 112%; color: var(--slate); font-variant-numeric: tabular-nums; }
 
 /* ---------- applications ---------- */
-.apps { background: var(--panel); }
+.apps { background: var(--resin); }
 .seg { display: inline-flex; flex-wrap: wrap; gap: 4px; padding: 4px; margin-bottom: 1.75rem; border-radius: 12px; background: rgba(28,33,36,.07); }
 .seg-tab { display: inline-flex; align-items: baseline; gap: 0.5rem; min-height: 44px; padding: 0 1.1rem; border: 0; border-radius: 9px; background: transparent; color: var(--graphite); font: 800 1rem/44px var(--f-x); font-stretch: 112%; cursor: pointer; transition: background-color 140ms ease-out; }
 .seg-tab span { font: 600 0.8125rem/1 var(--f-x); opacity: 0.65; }
@@ -148,7 +148,7 @@ a, button { touch-action: manipulation; }
 .case-nav { display: none; }
 
 /* ---------- products ---------- */
-.products { background: var(--resin); }
+.products { background: var(--panel); }
 .lineup { display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 5fr) minmax(0, 4fr); gap: clamp(1.5rem, 3vw, 3rem); align-items: start; }
 .tabs-col { display: grid; gap: 1.5rem; align-content: start; }
 .tabs { display: grid; gap: 2px; }

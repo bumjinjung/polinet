@@ -63,7 +63,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,500..800&family=Gothic+A1:wght@400;500;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css?v=20261126a">
+    <link rel="stylesheet" href="styles.css?v=20261126b">
     <link rel="stylesheet" href="molding-lab/story-embed.css?v=1">
 </head>
 <body>
@@ -91,8 +91,8 @@
       <ul class="nav-menu" id="navMenu">
         <li><a href="#about" class="nav-link">회사소개</a></li>
         <li><a href="#business" class="nav-link">사업분야</a></li>
-        <li><a href="#applications" class="nav-link">적용 사례</a></li>
         <li><a href="#products" class="nav-link">제품소개</a></li>
+        <li><a href="#applications" class="nav-link">적용 사례</a></li>
         <li><a href="#contact" class="nav-link nav-cta">문의하기</a></li>
       </ul>
     </div>
@@ -161,6 +161,63 @@
         <li><img src="images/step-3.webp" width="800" height="600" alt="사출기 옆 작업대에서 시사출한 기어를 캘리퍼로 재는 모습" loading="lazy"><strong>시사출 및 불량 분석</strong></li>
         <li><img src="images/step-4.webp" width="800" height="600" alt="사출기가 줄지어 선 공장에서 기어가 컨베이어로 상자에 담기고 출하 박스가 쌓인 모습" loading="lazy"><strong>양산</strong></li>
       </ol>
+    </div>
+  </section>
+
+  <!-- 4. products -->
+  <section id="products" class="screen products">
+    <div class="wrap">
+      <div class="screen-head">
+        <h2>제품소개</h2>
+      </div>
+      <div class="lineup">
+        <div class="tabs-col">
+        <div class="tabs" role="tablist" aria-label="제품">
+          <button class="tab" role="tab" id="t-pps" aria-controls="p-pps" aria-selected="true" data-filter="pps" data-img="images/cut-durafide.webp" data-sub="Polyphenylene Sulfide (PPS)" data-side="Polyphenylene Sulfide" data-grade="1140A6" data-ink="--k-pps" data-brand="DURAFIDE" data-mark="®" data-type="PPS"><span class="tab-brand" translate="no">DURAFIDE®</span><span class="tab-type">PPS</span></button>
+          <button class="tab" role="tab" id="t-pom" aria-controls="p-pom" aria-selected="false" tabindex="-1" data-filter="pom" data-img="images/cut-duracon.webp" data-sub="Acetal Co-polymer (POM)" data-side="Acetal Co-polymer" data-grade="M90-44" data-ink="--k-pom" data-brand="DURACON" data-mark="®" data-type="POM"><span class="tab-brand" translate="no">DURACON®</span><span class="tab-type">POM</span></button>
+          <button class="tab" role="tab" id="t-lcp" aria-controls="p-lcp" aria-selected="false" tabindex="-1" data-filter="lcp" data-img="images/cut-laperos.webp" data-sub="Liquid Crystal Polymer (LCP)" data-side="Liquid Crystal Polymer" data-grade="E130i" data-ink="--k-lcp" data-brand="LAPEROS" data-mark="®" data-type="LCP"><span class="tab-brand" translate="no">LAPEROS®</span><span class="tab-type">LCP</span></button>
+          <button class="tab" role="tab" id="t-pbt" aria-controls="p-pbt" aria-selected="false" tabindex="-1" data-filter="pbt" data-img="images/cut-duranex.webp" data-sub="Polybutylene Terephthalate (PBT)" data-side="Polybutylene Terephthalate" data-grade="330HR" data-ink="--k-pbt" data-brand="DURANEX" data-mark="®" data-type="PBT"><span class="tab-brand" translate="no">DURANEX®</span><span class="tab-type">PBT</span></button>
+          <button class="tab" role="tab" id="t-coc" aria-controls="p-coc" aria-selected="false" tabindex="-1" data-filter="coc" data-img="images/cut-topas.webp" data-sub="Cyclic Olefin Copolymer (COC)" data-side="Cyclic Olefin Copolymer" data-grade="6013" data-ink="--k-coc" data-brand="TOPAS" data-mark="®" data-type="COC"><span class="tab-brand" translate="no">TOPAS®</span><span class="tab-type">COC</span></button>
+        </div>
+        <p class="others">여기에 없는 소재와 그레이드도 공급합니다. 용도와 필요한 물성을 알려 주시면 맞는 제품을 <a href="#contact">찾아 드립니다</a>.</p>
+        </div>
+
+        <div class="bag-stage" aria-hidden="true">
+          <figure class="grounded stage-fig"><img class="stage-photo" id="stageBag" src="images/cut-durafide.webp" width="547" height="900" alt=""></figure>
+        </div>
+
+        <div id="productsGrid">
+          <article class="panel" role="tabpanel" id="p-pps" aria-labelledby="t-pps">
+            <h3 translate="no">DURAFIDE® PPS</h3><p class="panel-name">폴리페닐렌 설파이드</p>
+            <p class="panel-desc">탁월한 내열성(240&nbsp;°C), 내약품성 및 기계적 강도를 가진 슈퍼 엔지니어링 플라스틱으로 난연성이 우수합니다.</p>
+            <dl class="panel-specs"><div><dt>GRADE</dt><dd><ul class="grades" translate="no"><li>1140A6</li><li>6150T73</li><li>6465A62</li></ul></dd></div><div><dt>APPLICATION</dt><dd class="uses">모터 인슐레이터, DC-DC 컨버터, 전자 스로틀 바디</dd></div></dl>
+          </article>
+          <article class="panel" role="tabpanel" id="p-pom" aria-labelledby="t-pom" hidden>
+            <h3 translate="no">DURACON® POM</h3><p class="panel-name">폴리아세탈 (Polyacetal)</p>
+            <p class="panel-desc">우수한 기계적 강도, 강성 및 치수 안정성을 가진 엔지니어링 플라스틱으로 마찰 특성이 뛰어나며 내피로성이 우수합니다.</p>
+            <dl class="panel-specs"><div><dt>GRADE</dt><dd><ul class="grades" translate="no"><li>M90-44</li><li>SW-01</li><li>NW-02</li></ul></dd></div><div><dt>APPLICATION</dt><dd class="uses">연료 펌프 모듈, 에어컨 벤틸레이터, 비데 노즐 유닛, 소형 모터 기어</dd></div></dl>
+          </article>
+          <article class="panel" role="tabpanel" id="p-lcp" aria-labelledby="t-lcp" hidden>
+            <h3 translate="no">LAPEROS® LCP</h3><p class="panel-name">액정 폴리머</p>
+            <p class="panel-desc">초정밀 성형이 가능한 고성능 열가소성 수지로, 낮은 성형 수축률과 우수한 치수 안정성을 제공합니다.</p>
+            <dl class="panel-specs"><div><dt>GRADE</dt><dd><ul class="grades" translate="no"><li>E130i</li><li>E471i</li><li>E481i</li></ul></dd></div><div><dt>APPLICATION</dt><dd class="uses">카메라 모듈, 협피치 커넥터, FPC 커넥터</dd></div></dl>
+          </article>
+          <article class="panel" role="tabpanel" id="p-pbt" aria-labelledby="t-pbt" hidden>
+            <h3 translate="no">DURANEX® PBT</h3><p class="panel-name">폴리부틸렌 테레프탈레이트</p>
+            <p class="panel-desc">전기적 특성과 내열성이 우수하며, 치수 안정성과 내약품성이 뛰어난 열가소성 폴리에스터 수지입니다.</p>
+            <dl class="panel-specs"><div><dt>GRADE</dt><dd><ul class="grades" translate="no"><li>330HR</li><li>3300</li><li>315NF</li></ul></dd></div><div><dt>APPLICATION</dt><dd class="uses">고전압 커넥터, 충전건, 배터리 케이스</dd></div></dl>
+          </article>
+          <article class="panel" role="tabpanel" id="p-coc" aria-labelledby="t-coc" hidden>
+            <h3 translate="no">TOPAS® COC</h3><p class="panel-name">사이클릭 올레핀 코폴리머</p>
+            <p class="panel-desc">높은 투명성, 낮은 수분 흡수율 및 우수한 생체 적합성을 가진 투명 플라스틱으로 광학 및 의료 분야에 최적입니다.</p>
+            <dl class="panel-specs"><div><dt>GRADE</dt><dd><ul class="grades" translate="no"><li>6013</li><li>8007</li><li>5013</li></ul></dd></div><div><dt>APPLICATION</dt><dd class="uses">의료기기, 광학렌즈, 포장재</dd></div></dl>
+          </article>
+          <div class="actions">
+            <a href="#contact" class="btn btn--solid">견적 문의</a>
+            <a href="https://hpps.daicel.com/global/s/Gidb?language=en_US" class="btn" target="_blank" rel="noopener noreferrer">다이셀 제품 카탈로그<span class="sr-only">(새 탭에서 열림)</span><svg class="ext" width="14" height="14" viewBox="0 0 14 14" aria-hidden="true"><path d="M5 2h7v7M12 2 3 11" fill="none" stroke="currentColor" stroke-width="1.8"/></svg></a>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -237,7 +294,7 @@
     </div>
   </section>
 
-  <!-- applications -->
+  <!-- 5. applications -->
   <section id="applications" class="screen apps">
     <div class="wrap">
       <div class="screen-head">
@@ -279,64 +336,7 @@
     </div>
   </section>
 
-  <!-- 4. products -->
-  <section id="products" class="screen products">
-    <div class="wrap">
-      <div class="screen-head">
-        <h2>제품소개</h2>
-      </div>
-      <div class="lineup">
-        <div class="tabs-col">
-        <div class="tabs" role="tablist" aria-label="제품">
-          <button class="tab" role="tab" id="t-pps" aria-controls="p-pps" aria-selected="true" data-filter="pps" data-img="images/cut-durafide.webp" data-sub="Polyphenylene Sulfide (PPS)" data-side="Polyphenylene Sulfide" data-grade="1140A6" data-ink="--k-pps" data-brand="DURAFIDE" data-mark="®" data-type="PPS"><span class="tab-brand" translate="no">DURAFIDE®</span><span class="tab-type">PPS</span></button>
-          <button class="tab" role="tab" id="t-pom" aria-controls="p-pom" aria-selected="false" tabindex="-1" data-filter="pom" data-img="images/cut-duracon.webp" data-sub="Acetal Co-polymer (POM)" data-side="Acetal Co-polymer" data-grade="M90-44" data-ink="--k-pom" data-brand="DURACON" data-mark="®" data-type="POM"><span class="tab-brand" translate="no">DURACON®</span><span class="tab-type">POM</span></button>
-          <button class="tab" role="tab" id="t-lcp" aria-controls="p-lcp" aria-selected="false" tabindex="-1" data-filter="lcp" data-img="images/cut-laperos.webp" data-sub="Liquid Crystal Polymer (LCP)" data-side="Liquid Crystal Polymer" data-grade="E130i" data-ink="--k-lcp" data-brand="LAPEROS" data-mark="®" data-type="LCP"><span class="tab-brand" translate="no">LAPEROS®</span><span class="tab-type">LCP</span></button>
-          <button class="tab" role="tab" id="t-pbt" aria-controls="p-pbt" aria-selected="false" tabindex="-1" data-filter="pbt" data-img="images/cut-duranex.webp" data-sub="Polybutylene Terephthalate (PBT)" data-side="Polybutylene Terephthalate" data-grade="330HR" data-ink="--k-pbt" data-brand="DURANEX" data-mark="®" data-type="PBT"><span class="tab-brand" translate="no">DURANEX®</span><span class="tab-type">PBT</span></button>
-          <button class="tab" role="tab" id="t-coc" aria-controls="p-coc" aria-selected="false" tabindex="-1" data-filter="coc" data-img="images/cut-topas.webp" data-sub="Cyclic Olefin Copolymer (COC)" data-side="Cyclic Olefin Copolymer" data-grade="6013" data-ink="--k-coc" data-brand="TOPAS" data-mark="®" data-type="COC"><span class="tab-brand" translate="no">TOPAS®</span><span class="tab-type">COC</span></button>
-        </div>
-        <p class="others">여기에 없는 소재와 그레이드도 공급합니다. 용도와 필요한 물성을 알려 주시면 맞는 제품을 <a href="#contact">찾아 드립니다</a>.</p>
-        </div>
-
-        <div class="bag-stage" aria-hidden="true">
-          <figure class="grounded stage-fig"><img class="stage-photo" id="stageBag" src="images/cut-durafide.webp" width="547" height="900" alt=""></figure>
-        </div>
-
-        <div id="productsGrid">
-          <article class="panel" role="tabpanel" id="p-pps" aria-labelledby="t-pps">
-            <h3 translate="no">DURAFIDE® PPS</h3><p class="panel-name">폴리페닐렌 설파이드</p>
-            <p class="panel-desc">탁월한 내열성(240&nbsp;°C), 내약품성 및 기계적 강도를 가진 슈퍼 엔지니어링 플라스틱으로 난연성이 우수합니다.</p>
-            <dl class="panel-specs"><div><dt>GRADE</dt><dd><ul class="grades" translate="no"><li>1140A6</li><li>6150T73</li><li>6465A62</li></ul></dd></div><div><dt>APPLICATION</dt><dd class="uses">모터 인슐레이터, DC-DC 컨버터, 전자 스로틀 바디</dd></div></dl>
-          </article>
-          <article class="panel" role="tabpanel" id="p-pom" aria-labelledby="t-pom" hidden>
-            <h3 translate="no">DURACON® POM</h3><p class="panel-name">폴리아세탈 (Polyacetal)</p>
-            <p class="panel-desc">우수한 기계적 강도, 강성 및 치수 안정성을 가진 엔지니어링 플라스틱으로 마찰 특성이 뛰어나며 내피로성이 우수합니다.</p>
-            <dl class="panel-specs"><div><dt>GRADE</dt><dd><ul class="grades" translate="no"><li>M90-44</li><li>SW-01</li><li>NW-02</li></ul></dd></div><div><dt>APPLICATION</dt><dd class="uses">연료 펌프 모듈, 에어컨 벤틸레이터, 비데 노즐 유닛, 소형 모터 기어</dd></div></dl>
-          </article>
-          <article class="panel" role="tabpanel" id="p-lcp" aria-labelledby="t-lcp" hidden>
-            <h3 translate="no">LAPEROS® LCP</h3><p class="panel-name">액정 폴리머</p>
-            <p class="panel-desc">초정밀 성형이 가능한 고성능 열가소성 수지로, 낮은 성형 수축률과 우수한 치수 안정성을 제공합니다.</p>
-            <dl class="panel-specs"><div><dt>GRADE</dt><dd><ul class="grades" translate="no"><li>E130i</li><li>E471i</li><li>E481i</li></ul></dd></div><div><dt>APPLICATION</dt><dd class="uses">카메라 모듈, 협피치 커넥터, FPC 커넥터</dd></div></dl>
-          </article>
-          <article class="panel" role="tabpanel" id="p-pbt" aria-labelledby="t-pbt" hidden>
-            <h3 translate="no">DURANEX® PBT</h3><p class="panel-name">폴리부틸렌 테레프탈레이트</p>
-            <p class="panel-desc">전기적 특성과 내열성이 우수하며, 치수 안정성과 내약품성이 뛰어난 열가소성 폴리에스터 수지입니다.</p>
-            <dl class="panel-specs"><div><dt>GRADE</dt><dd><ul class="grades" translate="no"><li>330HR</li><li>3300</li><li>315NF</li></ul></dd></div><div><dt>APPLICATION</dt><dd class="uses">고전압 커넥터, 충전건, 배터리 케이스</dd></div></dl>
-          </article>
-          <article class="panel" role="tabpanel" id="p-coc" aria-labelledby="t-coc" hidden>
-            <h3 translate="no">TOPAS® COC</h3><p class="panel-name">사이클릭 올레핀 코폴리머</p>
-            <p class="panel-desc">높은 투명성, 낮은 수분 흡수율 및 우수한 생체 적합성을 가진 투명 플라스틱으로 광학 및 의료 분야에 최적입니다.</p>
-            <dl class="panel-specs"><div><dt>GRADE</dt><dd><ul class="grades" translate="no"><li>6013</li><li>8007</li><li>5013</li></ul></dd></div><div><dt>APPLICATION</dt><dd class="uses">의료기기, 광학렌즈, 포장재</dd></div></dl>
-          </article>
-          <div class="actions">
-            <a href="#contact" class="btn btn--solid">견적 문의</a>
-            <a href="https://hpps.daicel.com/global/s/Gidb?language=en_US" class="btn" target="_blank" rel="noopener noreferrer">다이셀 제품 카탈로그<span class="sr-only">(새 탭에서 열림)</span><svg class="ext" width="14" height="14" viewBox="0 0 14 14" aria-hidden="true"><path d="M5 2h7v7M12 2 3 11" fill="none" stroke="currentColor" stroke-width="1.8"/></svg></a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- 5. contact -->
+  <!-- 6. contact -->
   <section id="contact" class="screen contact">
     <div class="wrap">
       <div class="screen-head">
